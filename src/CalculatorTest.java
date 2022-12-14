@@ -42,6 +42,7 @@ public class CalculatorTest {
         assertThat(Calculator.calculation(2, 7, '*')).isEqualTo(14);
         assertThat(Calculator.calculation(100, 50, '/')).isEqualTo(2);
 
+        // Проверка расчета суммы со скидкой
         assertThat(Calculator.calculatingDiscount(2000, 6)).isEqualTo(1880);
 
         // Проверка ожидаемого исключения, с использованием утверждений AssertJ:
