@@ -1,15 +1,14 @@
-package Test;
-
-import ru.geekbrains.junit5.simple_shopping_cart.Cart;
-import ru.geekbrains.junit5.simple_shopping_cart.Product;
-import ru.geekbrains.junit5.simple_shopping_cart.Shop;
+import org.junit.jupiter.api.Test;
+import simple_shopping_cart.Cart;
+import simple_shopping_cart.Product;
+import simple_shopping_cart.Shop;
 
 import java.io.ByteArrayOutputStream;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
-//import static org.assertj.core.api.Assertions.*;
+import static org.assertj.core.api.Assertions.*;
 
 public class ShopTest {
 
@@ -65,13 +64,17 @@ public class ShopTest {
      * Стоимость корзины посчиталась корректно
      */
 
+    @Test
     void priceCartIsCorrectCalculated() {
         // Arrange (Подготовка)
-
+        Shop shop = new Shop(getStoreItems());
+        Cart cart = new Cart(shop);
         // Act (Выполнение)
-
+        cart.addProductToCartByID(1);
+        cart.addProductToCartByID(2);
+        cart.addProductToCartByID(3);
         // Assert (Проверка утверждения)
-
+        assertThat(cart.getTotalPrice()).isEqualTo(620);
     }
 
     /**

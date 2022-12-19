@@ -1,4 +1,4 @@
-package ru.geekbrains.junit5.simple_shopping_cart;
+package simple_shopping_cart;
 
 import java.util.ArrayList;
 import java.util.List;
