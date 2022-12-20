@@ -117,11 +117,11 @@ public class Cart {
         }
 
 
-        try {
-            Thread.sleep(70);
-        } catch (InterruptedException e) {
-            throw new RuntimeException(e);
-        }
+//        try {
+//            Thread.sleep(70);
+//        } catch (InterruptedException e) {
+//            throw new RuntimeException(e);
+//        }
 
 
         recalculate();

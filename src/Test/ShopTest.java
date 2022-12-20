@@ -1,4 +1,4 @@
-import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.*;
 import simple_shopping_cart.Cart;
 import simple_shopping_cart.Product;
 import simple_shopping_cart.Shop;
@@ -9,6 +9,7 @@ import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 import static org.assertj.core.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public class ShopTest {
 
@@ -33,13 +34,13 @@ public class ShopTest {
     }
     private ByteArrayOutputStream output = new ByteArrayOutputStream();
 
-    // private Shop shop;
-    // private Cart cart;
-    //  @BeforeEach
-    //  void setup() {
-    //      shop = new Shop(getStoreItems());
-    //      cart = new Cart(shop);
-    //  }
+     private Shop shop;
+     private Cart cart;
+      @BeforeEach
+      void setup() {
+          shop = new Shop(getStoreItems());
+          cart = new Cart(shop);
+      }
 
 /*
             ID | Название  | Цена, р. | Кол-во в магазине, шт.
@@ -83,14 +84,17 @@ public class ShopTest {
      * <br><b>Ожидаемый результат:</b>
      * Стоимость корзины посчиталась корректно
      */
-
+    @Test
     void priceCartProductsSameTypeIsCorrectCalculated() {
         // Arrange
 
         // Act
-
+        cart.addProductToCartByID(1);
+        cart.addProductToCartByID(2);
+        cart.addProductToCartByID(2);
+        cart.addProductToCartByID(3);
         // Assert
-
+        assertThat(cart.getTotalPrice()).isEqualTo(870);
     }
 
     /**
@@ -100,13 +104,16 @@ public class ShopTest {
      * Вызывается метод пересчета стоимости корзины, стоимость корзины меняется
      */
 
+    @Test
     void whenChangingCartCostRecalculationIsCalled() {
         // Arrange
 
         // Act
-
+        cart.addProductToCartByID(2);
+        cart.addProductToCartByID(2);
+        cart.removeProductByID(2);
         // Assert
-
+        assertThat(cart.getTotalPrice()).isEqualTo(250);
     }
 
     /**
@@ -116,15 +123,19 @@ public class ShopTest {
      * Количество товара в магазине уменьшается на число продуктов в корзине пользователя
      */
 
+    @Test
     void quantityProductsStoreChanging() {
         // Arrange
 
         // Act
-
+        cart.addProductToCartByID(2);
+        cart.addProductToCartByID(2);
+        cart.addProductToCartByID(2);
         // Assert
+        assertThat(shop.getProductsShop().get(1).getQuantity()).isEqualTo(7);
 
-       // shop.getProductsShop().get(0) .getId() // id 1
-       // cart.cartItems.get(0)         .getId() // id 2
+        // shop.getProductsShop().get(0) .getId() // id 1
+        // cart.cartItems.get(0)         .getId() // id 2
 
     }
 
@@ -135,13 +146,16 @@ public class ShopTest {
      * Больше такой продукт заказать нельзя, он не появляется на полке
      */
 
+    @Test
     void lastProductsDisappearFromStore() {
         // Arrange
 
         // Act
-
+        for (int i = 0; i < 11; i++) {
+            cart.addProductToCartByID(1);
+        }
         // Assert
-
+        assertThat(shop.getProductsShop().get(0).getQuantity()).isEqualTo(0);
     }
 
     /**
@@ -151,13 +165,21 @@ public class ShopTest {
      * Количество продуктов этого типа на складе увеличивается на число удаленных из корзины продуктов
      */
 
+    @Test
     void deletedProductIsReturnedToShop() {
         // Arrange
 
         // Act
-
+        cart.addProductToCartByID(2);
+        cart.addProductToCartByID(2);
+        cart.addProductToCartByID(2);
+        cart.addProductToCartByID(2);
+        cart.addProductToCartByID(2);
+        assertThat(shop.getProductsShop().get(1).getQuantity()).isEqualTo(5);
+        cart.removeProductByID(2);
+        cart.removeProductByID(2);
         // Assert
-
+        assertThat(shop.getProductsShop().get(1).getQuantity()).isEqualTo(7);
     }
 
     /**
@@ -168,14 +190,21 @@ public class ShopTest {
      *  *Сделать тест параметризованным
      */
 
+    @Test
     void incorrectProductSelectionCausesException() {
 
         // Arrange
 
         // Act
+        RuntimeException exception = assertThrows(RuntimeException.class, () ->{
+            cart.addProductToCartByID(15);
+        });
 
         // Assert
+        String expectedMessage = "Не найден продукт с id: 15";
+        String actualMessage = exception.getMessage();
 
+        assertThat(actualMessage).isEqualTo(expectedMessage);
     }
 
     /**
@@ -184,14 +213,20 @@ public class ShopTest {
      * <br><b>Ожидаемый результат:</b> Исключение типа RuntimeException и сообщение "В корзине не найден продукт с id"
      */
 
+    @Test
     void incorrectProductRemoveCausesException() {
         // Arrange
 
-
         // Act
-
+        RuntimeException exception = assertThrows(RuntimeException.class, () ->{
+                cart.removeProductByID(1);
+    });
 
         // Assert
+        String expectedMessage = "В корзине не найден продукт с id: 1";
+        String actualMessage = exception.getMessage();
+
+        assertThat(actualMessage).isEqualTo(expectedMessage);
 
     }
 
@@ -199,16 +234,16 @@ public class ShopTest {
      * 2.9. Нужно восстановить тест
      *
      */
-    // boolean Сломанный-Тест() {
-    //          // Assert (Проверка утверждения)
-    //          assertThat(cart.getTotalPrice()).isEqualTo(cart.getTotalPrice());
-    //          // Act (Выполнение)
-    //          cart.addProductToCartByID(2); // 250
-    //          cart.addProductToCartByID(2); // 250
-    //          // Arrange (Подготовка)
-    //          Shop shop = new Shop(getStoreItems());
-    //          Cart cart = new Cart(shop);
-    //      }
+    @Test
+     void getTotalPriceFromCart() {
+         // Arrange (Подготовка)
+
+        // Act (Выполнение)
+        cart.addProductToCartByID(2); // 250
+        cart.addProductToCartByID(2); // 250
+        // Assert (Проверка утверждения)
+        assertThat(cart.getTotalPrice()).isEqualTo(500);
+    }
 
     /**
      * 2.10. Нужно изменить тест по следующим критериям:
@@ -218,12 +253,18 @@ public class ShopTest {
      * <br> 4. После проверки работоспособности теста, его нужно выключить
      */
 
+    @DisplayName("Advanced test for calculating TotalPrice")
+    @RepeatedTest(10)
+    @Timeout(value = 70, unit = TimeUnit.MILLISECONDS)
+    @Test
+    @Disabled
     void priceCartIsCorrectCalculatedExt() {
         // Arrange (Подготовка)
 
         // Act (Выполнение)
-
+        cart.addProductToCartByID(2);
+        cart.removeProductByID(2);
         // Assert (Проверка утверждения)
-
+        assertThat(cart.getTotalPrice()).isEqualTo(0);
     }
 }
