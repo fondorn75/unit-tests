@@ -1,0 +1,162 @@
+
+
+
+<!DOCTYPE html>
+<html id="htmlId">
+<head>
+  <title>Coverage Report > SomeService</title>
+  <style type="text/css">
+    @import "../../css/coverage.css";
+    @import "../../css/idea.min.css";
+  </style>
+  <script type="text/javascript" src="../../js/highlight.min.js"></script>
+  <script type="text/javascript" src="../../js/highlightjs-line-numbers.min.js"></script>
+</head>
+
+<body>
+<div class="content">
+<div class="breadCrumbs">
+Current scope:     <a href="../../index.html">all classes</a>
+    <span class="separator">|</span>
+    <a href="../index.html">Coverage</a>
+</div>
+
+<h1>Coverage Summary for Class: SomeService (Coverage)</h1>
+
+<table class="coverageStats">
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Class, %
+</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">SomeService</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (1/1)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (7/7)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (32/32)
+  </span>
+</td>
+</tr>
+
+</table>
+
+<br/>
+<br/>
+
+
+<pre>
+<code class="sourceCode" id="sourceCode">&nbsp;package Coverage;
+&nbsp;
+<b class="fc">&nbsp;public class SomeService {</b>
+&nbsp;    public String fizzBuzz(int i) {
+<b class="fc">&nbsp;        if (i % 15 == 0) {</b>
+<b class="fc">&nbsp;            return &quot;FizzBuzz&quot;;</b>
+<b class="fc">&nbsp;        } else if (i % 3 == 0) {</b>
+<b class="fc">&nbsp;            return &quot;Fizz&quot;;</b>
+<b class="fc">&nbsp;        } else if (i % 5 == 0) {</b>
+<b class="fc">&nbsp;            return &quot;Buzz&quot;;</b>
+&nbsp;        } else {
+<b class="fc">&nbsp;            return &quot;&quot; + i;</b>
+&nbsp;        }
+&nbsp;    }
+&nbsp;
+&nbsp;
+&nbsp;    public boolean firstLast6(int[] nums) {
+<b class="fc">&nbsp;        if (nums[0] == 6) {</b>
+<b class="fc">&nbsp;            return true;</b>
+<b class="fc">&nbsp;        } else if (nums[nums.length - 1] == 6) {</b>
+<b class="fc">&nbsp;            return true;</b>
+&nbsp;        } else {
+<b class="fc">&nbsp;            return false;</b>
+&nbsp;        }
+&nbsp;    }
+&nbsp;
+&nbsp;
+&nbsp;    public int luckySum(int a, int b, int c){
+<b class="fc">&nbsp;        if (a == 13) {</b>
+<b class="fc">&nbsp;            return b + c;</b>
+<b class="fc">&nbsp;        } else if (b == 13) {</b>
+<b class="fc">&nbsp;            return  a + c;</b>
+<b class="fc">&nbsp;        } else if (c == 13) {</b>
+<b class="fc">&nbsp;            return a +b;</b>
+<b class="fc">&nbsp;        } else return a + b + c;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    public String moodAnalise(String message) {
+<b class="fc">&nbsp;        if (message.contains(&quot;грустное&quot;)) {</b>
+<b class="fc">&nbsp;            return &quot;SAD&quot;;</b>
+<b class="fc">&nbsp;        } else return &quot;HAPPY&quot;;</b>
+<b class="fc">&nbsp;    }</b>
+<b class="fc">&nbsp;</b>
+<b class="fc">&nbsp;    public boolean evenOddNumber(int n) {</b>
+<b class="fc">&nbsp;        if (n % 2 == 0) {</b>
+<b class="fc">&nbsp;            return true;</b>
+&nbsp;        } else {
+<b class="fc">&nbsp;            return false;</b>
+&nbsp;        }
+&nbsp;    }
+&nbsp;
+&nbsp;    public boolean numberInInterval(int n) {
+<b class="fc">&nbsp;    if (n &gt;= 25 &amp;&amp; n&lt;=100){</b>
+<b class="fc">&nbsp;        return true;</b>
+&nbsp;    } else {
+<b class="fc">&nbsp;        return false;</b>
+&nbsp;    }
+&nbsp;    }
+&nbsp;}
+</code>
+</pre>
+</div>
+
+<script type="text/javascript">
+(function() {
+    var msie = false, msie9 = false;
+    /*@cc_on
+      msie = true;
+      @if (@_jscript_version >= 9)
+        msie9 = true;
+      @end
+    @*/
+
+    if (!msie || msie && msie9) {
+      hljs.highlightAll()
+      hljs.initLineNumbersOnLoad();
+    }
+})();
+</script>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2022-12-26 17:59</div>
+</div>
+</body>
+</html>
